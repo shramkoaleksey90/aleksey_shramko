@@ -13,7 +13,7 @@ class LeftJoinOperationTest {
   private LeftJoinOperation<Integer, String, String> leftJoinOperation;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     leftJoinOperation = new LeftJoinOperation<>();
   }
 
