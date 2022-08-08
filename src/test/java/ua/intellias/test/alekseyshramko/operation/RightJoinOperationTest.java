@@ -31,7 +31,7 @@ class RightJoinOperationTest {
   }
 
   @Test
-  void givenNullKeyValue() {
+  void givenNullKeyValueIntoRightCollection() {
     //Given
     List<DataRow<Integer, String>> left = List.of(
         new DataRow<>(0, "Ukraine"));
@@ -46,7 +46,37 @@ class RightJoinOperationTest {
   }
 
   @Test
-  void givenNullAsValue() {
+  void givenNullKeyValueIntoLeftCollection() {
+    //Given
+    List<DataRow<Integer, String>> left = List.of(
+        new DataRow<>(null, "Ukraine"));
+    List<DataRow<Integer, String>> right = List.of(
+        new DataRow<>(0, "Kiev"));
+
+    //When
+    Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
+
+    //Then
+    assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
+  }
+
+  @Test
+  void givenNullLikeKeyForJoinOperation() {
+    //Given
+    List<DataRow<Integer, String>> left = List.of(
+        new DataRow<>(null, "Ukraine"));
+    List<DataRow<Integer, String>> right = List.of(
+        new DataRow<>(null, "Kiev"));
+
+    //When
+    Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
+
+    //Then
+    assertEquals(result, List.of(new JoinedDataRow(null, "Ukraine", "Kiev")));
+  }
+
+  @Test
+  void givenNullAsValueIntoRightCollection() {
     List<DataRow<Integer, String>> left = List.of(
         new DataRow<>(0, "Ukraine"));
     List<DataRow<Integer, String>> right = List.of(
@@ -56,5 +86,18 @@ class RightJoinOperationTest {
 
     //Then
     assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
+  }
+
+  @Test
+  void givenNullAsValueIntoLeftCollection() {
+    List<DataRow<Integer, String>> left = List.of(
+        new DataRow<>(0, null));
+    List<DataRow<Integer, String>> right = List.of(
+        new DataRow<>(0, "Kiev"));
+    //When
+    Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
+
+    //Then
+    assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
   }
 }

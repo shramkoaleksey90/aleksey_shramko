@@ -1,6 +1,7 @@
 package ua.intellias.test.alekseyshramko.operation;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import ua.intellias.test.alekseyshramko.dto.DataRow;
@@ -12,8 +13,8 @@ public class LeftJoinOperation<K, V1, V2> implements JoinOperation<DataRow<K, V1
   @Override
   public Collection<JoinedDataRow<K, V1, V2>> join(Collection<DataRow<K, V1>> leftCollection,
                                                    Collection<DataRow<K, V2>> rightCollection) {
-    Map<K, V2> rightCollectionMap = rightCollection.stream()
-        .collect(Collectors.toMap(DataRow::getKey, DataRow::getValue));
+    Map<K, V2> rightCollectionMap = new HashMap<>();
+    rightCollection.forEach(map -> rightCollectionMap.put(map.getKey(), map.getValue()));
 
     return leftCollection.stream()
         .map(dataRow -> {

@@ -31,7 +31,7 @@ class LeftJoinOperationTest {
   }
 
   @Test
-  void givenNullKeyValue() {
+  void givenNullKeyValueIntoLeftCollection() {
     //Given
     List<DataRow<Integer, String>> left = List.of(
         new DataRow<>(null, "Ukraine"));
@@ -46,7 +46,37 @@ class LeftJoinOperationTest {
   }
 
   @Test
-  void givenNullAsValue() {
+  void givenNullKeyValueIntoRightCollection() {
+    //Given
+    List<DataRow<Integer, String>> left = List.of(
+        new DataRow<>(0, "Ukraine"));
+    List<DataRow<Integer, String>> right = List.of(
+        new DataRow<>(null, "Kiev"));
+
+    //When
+    Collection<JoinedDataRow<Integer, String, String>> result = leftJoinOperation.join(left, right);
+
+    //Then
+    assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
+  }
+
+  @Test
+  void givenNullLikeKeyForJoinOperation() {
+    //Given
+    List<DataRow<Integer, String>> left = List.of(
+        new DataRow<>(null, "Ukraine"));
+    List<DataRow<Integer, String>> right = List.of(
+        new DataRow<>(null, "Kiev"));
+
+    //When
+    Collection<JoinedDataRow<Integer, String, String>> result = leftJoinOperation.join(left, right);
+
+    //Then
+    assertEquals(result, List.of(new JoinedDataRow(null, "Ukraine", "Kiev")));
+  }
+
+  @Test
+  void givenNullAsValueIntoLeftCollection() {
     //Given
     List<DataRow<Integer, String>> left = List.of(
         new DataRow<>(0, null));
@@ -58,5 +88,20 @@ class LeftJoinOperationTest {
 
     //Then
     assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
+  }
+
+  @Test
+  void givenNullAsValueIntoRightCollection() {
+    //Given
+    List<DataRow<Integer, String>> left = List.of(
+        new DataRow<>(0, "Ukraine"));
+    List<DataRow<Integer, String>> right = List.of(
+        new DataRow<>(0, null));
+
+    //When
+    Collection<JoinedDataRow<Integer, String, String>> result = leftJoinOperation.join(left, right);
+
+    //Then
+    assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
   }
 }

@@ -61,9 +61,8 @@ class InnerJoinOperationTest {
     assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
   }
 
-  @Disabled("something went wrong, I get an error NPE")
   @Test
-  void givenNullAsValueOfLeftCollection() {
+  void givenNullAsValueIntoLeftCollection() {
     //Given
     List<DataRow<Integer, String>> left = List.of(
         new DataRow<>(0, null));
@@ -74,7 +73,7 @@ class InnerJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = innerJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
+    assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
   }
 
 }
