@@ -37,12 +37,14 @@ class RightJoinOperationTest {
         new DataRow<>(0, "Ukraine"));
     List<DataRow<Integer, String>> right = List.of(
         new DataRow<>(null, "Kiev"));
+    List<JoinedDataRow<Integer, String, String>> joinedDataRow =
+        List.of(new JoinedDataRow<>(null, null, "Kiev"));
 
     //When
     Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(null, null, "Kiev")));
+    assertEquals(result, joinedDataRow);
   }
 
   @Test
@@ -57,7 +59,7 @@ class RightJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
+    assertEquals(result, List.of(new JoinedDataRow<>(0, null, "Kiev")));
   }
 
   @Test
