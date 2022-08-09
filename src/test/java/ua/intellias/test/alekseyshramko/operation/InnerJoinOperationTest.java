@@ -58,7 +58,7 @@ class InnerJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = innerJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
+    assertEquals(result, List.of(new JoinedDataRow<>(0, "Ukraine", null)));
   }
 
   @Test
@@ -73,7 +73,7 @@ class InnerJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = innerJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
+    assertEquals(result, List.of(new JoinedDataRow<>(0, null, "Kiev")));
   }
 
 }

@@ -74,7 +74,7 @@ class RightJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(null, "Ukraine", "Kiev")));
+    assertEquals(result, List.of(new JoinedDataRow<>(null, "Ukraine", "Kiev")));
   }
 
   @Test
@@ -87,7 +87,7 @@ class RightJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(0, "Ukraine", null)));
+    assertEquals(result, List.of(new JoinedDataRow<>(0, "Ukraine", null)));
   }
 
   @Test
@@ -100,6 +100,6 @@ class RightJoinOperationTest {
     Collection<JoinedDataRow<Integer, String, String>> result = rightJoinOperation.join(left, right);
 
     //Then
-    assertEquals(result, List.of(new JoinedDataRow(0, null, "Kiev")));
+    assertEquals(result, List.of(new JoinedDataRow<>(0, null, "Kiev")));
   }
 }
